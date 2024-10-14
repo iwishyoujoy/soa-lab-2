@@ -3,7 +3,7 @@
 import styles from './styles.module.css';
 import {Button} from "@/app/components/Button";
 import {DeleteIcon, EyesIcon} from "@/static/icons";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Band} from "@/app/types/bands";
 import {deleteBandsByGenre, getAllGenres, getBandWithMinGenre} from "@/app/queries/bands";
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ export const SpecialActions = () => {
 
     const [genresFetched, setGenresFetched] = useState<string[]>();
     const [minBand, setMinBand] = useState<Band>();
-    const [genreToDelete, setGenreToDelete] = useState<string>(genres[0] ?? '');
+    const [genreToDelete, setGenreToDelete] = useState<string>(genres[0] ?? 'ROCK');
 
     function onGetAllGenresSubmit() {
         getAllGenres()
