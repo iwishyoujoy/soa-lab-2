@@ -3,7 +3,7 @@
 import styles from './styles.module.css';
 import {Button} from "@/app/components/Button";
 import {DeleteIcon, EyesIcon} from "@/static/icons";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {Band} from "@/app/types/bands";
 import {deleteBandsByGenre, getAllGenres, getBandWithMinGenre} from "@/app/queries/bands";
 import toast from 'react-hot-toast';
