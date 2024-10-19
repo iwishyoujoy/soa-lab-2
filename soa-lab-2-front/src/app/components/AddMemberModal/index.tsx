@@ -32,14 +32,14 @@ export const AddMemberModal = ({ bandId, bandName, isVisible, onClose }: AppMemb
         }
 
         addParticipant(bandId, {
-            name,
+            name: name?.trim().length ? name?.trim() : undefined,
             birthday,
-            passportID: passport,
+            passportID: passport.trim(),
             location: {
                 x,
                 y,
                 z,
-                name: locationName
+                name: locationName?.trim()
             }
         }).then(() => {
             toast.success("Successfully created new member!");

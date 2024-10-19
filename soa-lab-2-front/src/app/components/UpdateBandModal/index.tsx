@@ -46,10 +46,11 @@ export const UpdateBandModal = ({ band, isVisible, onClose }: UpdateBandModalPro
 
         try {
             frontMan = getFrontMan({
-                name: frontManName,
+                name: frontManName?.trim(),
                 birthday: frontManBirthday,
-                passportID: frontManPassportID,
+                passportID: frontManPassportID?.trim(),
                 location: {
+                    name: frontManLocationName?.trim(),
                     x: frontManX,
                     y: frontManY,
                     z: frontManZ
@@ -61,13 +62,13 @@ export const UpdateBandModal = ({ band, isVisible, onClose }: UpdateBandModalPro
         }
 
         updateBandById(band.id,{
-            name,
+            name: name.trim(),
             coordinates: {
                 x,
                 y,
             },
             numberOfParticipants,
-            description,
+            description: description.trim(),
             genre,
             frontMan,
         }).then(() =>{
@@ -98,12 +99,12 @@ export const UpdateBandModal = ({ band, isVisible, onClose }: UpdateBandModalPro
                         <label className='input-container'>
                             Name*
                             <input id='name' value={name ?? ''} minLength={1} className='input'
-                                   onChange={(e) => setName(e.target.value.trim())}/>
+                                   onChange={(e) => setName(e.target.value)}/>
                         </label>
                         <label className='input-container'>
                             Description*
                             <input id='description' value={description ?? ''} className='input'
-                                   onChange={(e) => setDescription(e.target.value.trim())}/>
+                                   onChange={(e) => setDescription(e.target.value)}/>
                         </label>
                         <label className='input-container'>
                             Number of members*
@@ -140,7 +141,7 @@ export const UpdateBandModal = ({ band, isVisible, onClose }: UpdateBandModalPro
                         <label className='input-container'>
                             Name
                             <input id='name' minLength={1} value={frontManName ?? ''} className='input'
-                                   onChange={(e) => setFrontManName(e.target.value.trim())}/>
+                                   onChange={(e) => setFrontManName(e.target.value)}/>
                         </label>
                         <label className='input-container'>
                             Birthday
@@ -150,13 +151,13 @@ export const UpdateBandModal = ({ band, isVisible, onClose }: UpdateBandModalPro
                         <label className='input-container'>
                             Passport ID*
                             <input id='passport-id' value={frontManPassportID ?? ''} className='input'
-                                   onChange={(e) => setFrontManPassportID(e.target.value.trim())}/>
+                                   onChange={(e) => setFrontManPassportID(e.target.value)}/>
                         </label>
                         <h4>{"Front Man\'s location*"}</h4>
                         <label className='input-container'>
                             Location title
                             <input id='location-name' value={frontManLocationName ?? ''} className='input'
-                                   onChange={(e) => setFrontManLocationName(e.target.value.trim())}/>
+                                   onChange={(e) => setFrontManLocationName(e.target.value)}/>
                         </label>
                         <label className='input-container'>
                             Coordinate X*

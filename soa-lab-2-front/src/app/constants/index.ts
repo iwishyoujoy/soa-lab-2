@@ -1,2 +1,2 @@
-export const MAIN_FETCH_URL = 'https://localhost:8080/api/v1';
-export const GRAMMY_FETCH_URL = 'https://localhost:8081/api/v1/grammy'
+export const MAIN_FETCH_URL = 'https://localhost:1111/api/v1';
+export const GRAMMY_FETCH_URL = 'https://localhost:1112/api/v1/grammy'

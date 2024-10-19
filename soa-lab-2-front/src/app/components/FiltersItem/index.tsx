@@ -5,6 +5,7 @@ import {FILTER_TEXT, FilterType} from "@/app/types/filter";
 import {ChangeEvent, useContext, useState} from "react";
 import {FilterContext} from "@/app/context/filter";
 import styles from './styles.module.css';
+import toast from "react-hot-toast";
 
 type FiltersItemProps = {
     property: Property;
@@ -12,7 +13,7 @@ type FiltersItemProps = {
         min?: number;
         minLength?: number;
         step?: number;
-        type: 'number' | 'text';
+        type: 'number' | 'text' | 'datetime-local';
     }
     filtersList: FilterType[];
 }
@@ -25,6 +26,20 @@ export const FiltersItem = ({ property, filtersList, validate: { min, minLength,
 
     const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
+        if (type === 'datetime-local') {
+            if (!e.target['validity'].valid) {
+                toast.error("Not valid date");
+                return;
+            }
+            setFilters({
+                ...filters,
+                [property]: {
+                    operator: operator,
+                    value: e.target.value + ':00.000000'
+                }
+            });
+            return;
+        }
         setFilters({
             ...filters,
             [property]: {

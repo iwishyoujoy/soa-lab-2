@@ -7,7 +7,7 @@ export const getSortQuery = (sortMap: SortOrderMap) => {
         .filter(([_, order]) => order !== SortOrder.UNDEFINED)
         .map(([key, order], index) => {
             if (index === 0) return encodeURIComponent(`${key}[${order}]`);
-            return encodeURIComponent(`sort=${key}[${order}]`);
+            return "sort=" + encodeURIComponent(`${key}[${order}]`);
         });
 
     return appliedSorts.length > 0 ? appliedSorts.join('&') : undefined;

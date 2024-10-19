@@ -41,6 +41,9 @@ export function getErrorMessage(text: string) {
 
 export function getErrorMessages(text: string) {
     const response: ErrorResponse = JSON.parse(text);
-    const resultMap = Object.values(response.message);
-    return resultMap.join(". ");
+    if (typeof response.message === 'object') {
+        const resultMap = Object.values(response.message);
+        return resultMap.join(". ");
+    }
+   return getErrorMessage(text);
 }

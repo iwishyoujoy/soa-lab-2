@@ -40,7 +40,7 @@ export const Filters = ({ onClose }: FiltersProps) => {
             <FiltersItem filtersList={FILTER_LIST} property={Property.DESCRIPTION} validate={{type: 'text'}}/>
             <FiltersItem filtersList={FILTER_LIST_NUMBER} property={Property.COORDINATE_X} validate={{type: 'number', step: 1}}/>
             <FiltersItem filtersList={FILTER_LIST_NUMBER} property={Property.COORDINATE_Y} validate={{type: 'number', min: -439}}/>
-            <FiltersItem filtersList={FILTER_LIST_NUMBER} property={Property.CREATION_DATE} validate={{type: 'text'}}/>
+            <FiltersItem filtersList={FILTER_LIST_NUMBER} property={Property.CREATION_DATE} validate={{type: 'datetime-local'}}/>
             <FiltersItem filtersList={FILTER_LIST_NUMBER} property={Property.NUMBER_OF_PARTICIPANTS} validate={{type: 'number', min: 1, step: 1}}/>
             <FiltersItem filtersList={FILTER_LIST} property={Property.GENRE} validate={{type: 'text'}}/>
             <FiltersItem filtersList={FILTER_LIST} property={Property.PERSON_NAME} validate={{type: 'text', minLength: 1}}/>

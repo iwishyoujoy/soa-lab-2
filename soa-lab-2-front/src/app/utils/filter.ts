@@ -6,7 +6,7 @@ export const getFilterQuery = (filterMap: FilterMap) => {
         .filter(([_, filter]) => filter.value && filter.operator !== undefined)
         .map(([key, filter], index) => {
             if (index === 0) return encodeURIComponent(`${key}[${filter.operator}]${filter.value}`);
-            return encodeURIComponent(`filter=${key}[${filter.operator}]${filter.value}`);
+            return "filter=" + encodeURIComponent(`${key}[${filter.operator}]${filter.value}`);
         })
 
     return appliedFilters.length > 0 ? appliedFilters.join('&') : undefined;

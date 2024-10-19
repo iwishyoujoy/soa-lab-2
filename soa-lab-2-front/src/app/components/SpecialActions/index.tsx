@@ -16,7 +16,7 @@ export const SpecialActions = () => {
 
     const [genresFetched, setGenresFetched] = useState<string[]>();
     const [minBand, setMinBand] = useState<Band>();
-    const [genreToDelete, setGenreToDelete] = useState<string>(genres[0] ?? '');
+    const [genreToDelete, setGenreToDelete] = useState<string>(genres[0] ?? 'ROCK');
 
     function onGetAllGenresSubmit() {
         getAllGenres()
