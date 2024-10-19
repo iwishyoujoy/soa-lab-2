@@ -20,6 +20,7 @@ import ru.itmo.soa.mainservice.repositories.BandRepository;
 import ru.itmo.soa.mainservice.repositories.BandSpecifications;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class BandService {
     private PersonService personService;
 
     public Band createBand(Band band) {
-        band.setCreationDate(LocalDateTime.now());
+        band.setCreationDate(OffsetDateTime.now());
 
         Band newBand = bandRepository.save(band);
         if (band.getFrontMan() != null) {
@@ -130,7 +131,6 @@ public class BandService {
         }
         if (bandUpdate.getFrontMan() != null) {
             personService.createOrUpdatePerson(bandUpdate.getFrontMan());
-            existingBand.setFrontMan(bandUpdate.getFrontMan());
         }
         if (bandUpdate.getSingles() != null) {
             List<Single> singles = bandUpdate.getSingles();

@@ -17,10 +17,11 @@ public class Person {
     private Long id;
 
     @Size(min = 1, message = "Name must have at least 1 character")
+    @Column(columnDefinition = "TEXT")
     private String name;
 
     @NotNull(message = "Passport ID is required")
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, columnDefinition = "TEXT")
     private String passportID;
 
     private LocalDate birthday;

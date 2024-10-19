@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 public class Coordinates {
@@ -14,10 +16,10 @@ public class Coordinates {
     private Long id;
 
     @Digits(integer = 10, fraction = 0, message = "X must be an integer with up to 10 digits")
-    private Long x;
+    private BigDecimal x;
 
     @NotNull(message = "Y coordinate cannot be null")
     @Min(value = -439, message = "Y coordinate cannot be less than -439")
     @Column(nullable = false)
-    private Double y;
+    private BigDecimal y;
 }

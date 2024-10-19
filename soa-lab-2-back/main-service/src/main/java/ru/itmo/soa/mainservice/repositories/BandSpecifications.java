@@ -49,33 +49,16 @@ public class BandSpecifications {
                     }
 
                     Class<?> fieldType = currentPath.getJavaType();
-                    Predicate condition;
-
-                    switch (operator.toLowerCase()) {
-                        case "eq":
-                            condition = handleEqual(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "neq":
-                            condition = handleNotEqual(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "gt":
-                            condition = handleGreaterThan(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "gte":
-                            condition = handleGreaterThanOrEqualTo(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "lt":
-                            condition = handleLessThan(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "lte":
-                            condition = handleLessThanOrEqualTo(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        case "~":
-                            condition = handleLike(currentPath, fieldType, value, criteriaBuilder);
-                            break;
-                        default:
-                            throw new InvalidParameterException("Unknown operator: " + operator);
-                    }
+                    Predicate condition = switch (operator.toLowerCase()) {
+                        case "eq" -> handleEqual(currentPath, fieldType, value, criteriaBuilder);
+                        case "neq" -> handleNotEqual(currentPath, fieldType, value, criteriaBuilder);
+                        case "gt" -> handleGreaterThan(currentPath, fieldType, value, criteriaBuilder);
+                        case "gte" -> handleGreaterThanOrEqualTo(currentPath, fieldType, value, criteriaBuilder);
+                        case "lt" -> handleLessThan(currentPath, fieldType, value, criteriaBuilder);
+                        case "lte" -> handleLessThanOrEqualTo(currentPath, fieldType, value, criteriaBuilder);
+                        case "~" -> handleLike(currentPath, fieldType, value, criteriaBuilder);
+                        default -> throw new InvalidParameterException("Unknown operator: " + operator);
+                    };
 
                     predicate = criteriaBuilder.and(predicate, condition);
                 }
@@ -120,6 +103,8 @@ public class BandSpecifications {
             return criteriaBuilder.greaterThan(currentPath.as(Integer.class), Integer.valueOf(value));
         } else if (fieldType.equals(Double.class)) {
             return criteriaBuilder.greaterThan(currentPath.as(Double.class), Double.valueOf(value));
+        } else if (fieldType.isEnum()) {
+            return criteriaBuilder.equal(criteriaBuilder.upper(currentPath.as(String.class)), value.toUpperCase());
         } else if (fieldType.equals(LocalDate.class)) {
             return criteriaBuilder.greaterThan(currentPath.as(LocalDate.class), parseDate(value));
         } else if (fieldType.equals(LocalDateTime.class)) {
@@ -138,6 +123,8 @@ public class BandSpecifications {
             return criteriaBuilder.greaterThanOrEqualTo(currentPath.as(Integer.class), Integer.valueOf(value));
         } else if (fieldType.equals(Double.class)) {
             return criteriaBuilder.greaterThanOrEqualTo(currentPath.as(Double.class), Double.valueOf(value));
+        } else if (fieldType.isEnum()) {
+            return criteriaBuilder.equal(criteriaBuilder.upper(currentPath.as(String.class)), value.toUpperCase());
         } else if (fieldType.equals(LocalDate.class)) {
             return criteriaBuilder.greaterThanOrEqualTo(currentPath.as(LocalDate.class), parseDate(value));
         } else if (fieldType.equals(LocalDateTime.class)) {
@@ -156,6 +143,9 @@ public class BandSpecifications {
             return criteriaBuilder.lessThan(currentPath.as(Integer.class), Integer.valueOf(value));
         } else if (fieldType.equals(Double.class)) {
             return criteriaBuilder.lessThan(currentPath.as(Double.class), Double.valueOf(value));
+        } else if (fieldType.isEnum()) {
+            String enumValueAsString = ((Enum<?>) value).name();
+            return criteriaBuilder.equal(currentPath.as(String.class), criteriaBuilder.literal(enumValueAsString));
         } else if (fieldType.equals(LocalDate.class)) {
             return criteriaBuilder.lessThan(currentPath.as(LocalDate.class), parseDate(value));
         } else if (fieldType.equals(LocalDateTime.class)) {
@@ -174,6 +164,8 @@ public class BandSpecifications {
             return criteriaBuilder.lessThanOrEqualTo(currentPath.as(Integer.class), Integer.valueOf(value));
         } else if (fieldType.equals(Double.class)) {
             return criteriaBuilder.lessThanOrEqualTo(currentPath.as(Double.class), Double.valueOf(value));
+        } else if (fieldType.isEnum()) {
+            return criteriaBuilder.equal(criteriaBuilder.upper(currentPath.as(String.class)), value.toUpperCase());
         } else if (fieldType.equals(LocalDate.class)) {
             return criteriaBuilder.lessThanOrEqualTo(currentPath.as(LocalDate.class), parseDate(value));
         } else if (fieldType.equals(LocalDateTime.class)) {

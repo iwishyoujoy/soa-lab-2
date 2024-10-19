@@ -1,5 +1,6 @@
 package ru.itmo.soa.mainservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
@@ -23,7 +25,7 @@ public class Band {
 
     @NotNull(message = "Name is required")
     @Size(min = 1, message = "Name must have at least 1 character")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     private String name;
 
     @NotNull(message = "Coordinates are required")
@@ -31,7 +33,8 @@ public class Band {
     private Coordinates coordinates;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime creationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime creationDate;
 
     @Min(value = 1, message = "Number of participants must be greater than 0")
     @Column(nullable = false)
@@ -55,7 +58,7 @@ public class Band {
     @PrePersist
     protected void onCreate() {
         if (creationDate == null) {
-            creationDate = LocalDateTime.now();
+            creationDate = OffsetDateTime.now();
         }
     }
 }

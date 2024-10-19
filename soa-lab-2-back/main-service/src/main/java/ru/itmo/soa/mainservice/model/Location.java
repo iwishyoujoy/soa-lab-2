@@ -1,14 +1,13 @@
 package ru.itmo.soa.mainservice.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -19,15 +18,16 @@ public class Location {
     private Long id;
 
     @NotNull(message = "X coordinate is required")
-    private Float x;
+    private BigDecimal x;
 
     @Min(value = -439, message = "Y coordinate cannot be less than -439")
     @NotNull(message = "Y coordinate is required")
-    private float y;
+    private BigDecimal y;
 
     @NotNull(message = "Z coordinate is required")
-    private int z;
+    private BigDecimal z;
 
     @Size(min = 1, message = "Name must have at least 1 character")
+    @Column(columnDefinition = "TEXT")
     private String name;
 }

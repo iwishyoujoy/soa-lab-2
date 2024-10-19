@@ -16,6 +16,6 @@ public class Single {
 
     @NotNull(message = "Name is required")
     @Size(min = 1, message = "Name must have at least 1 character")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "TEXT")
     private String name;
 }
