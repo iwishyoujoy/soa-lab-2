@@ -30,10 +30,10 @@ export const TableRow = ({ band }: TableRowProps) => {
                     <TableCell>
                         #{band.id}
                     </TableCell>
-                    <TableCell className={styles.title}>
+                    <TableCell className={styles.title} overflow cellLength={band.name.length}>
                         {band.name}
                     </TableCell>
-                    <TableCell>
+                    <TableCell overflow cellLength={band.description.length}>
                         {band.description}
                     </TableCell>
                     <TableCell>
@@ -51,7 +51,7 @@ export const TableRow = ({ band }: TableRowProps) => {
                     <TableCell>
                         {band.genre}
                     </TableCell>
-                    <TableCell>
+                    <TableCell overflow cellLength={(band.frontMan ? band.frontMan.name : '–')?.length}>
                         {band.frontMan ? band.frontMan.name : '–'}
                     </TableCell>
                     <TableCell>
