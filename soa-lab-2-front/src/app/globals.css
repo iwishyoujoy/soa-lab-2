@@ -37,7 +37,7 @@ body {
 .table-grid {
   padding: 16px;
   display: grid;
-  grid-template-columns: 30px 150px 180px 120px repeat(2, 60px) 80px 100px 130px 140px 180px;
+  grid-template-columns: 35px 150px 180px 120px repeat(2, 60px) 80px 100px 130px 140px 180px;
   grid-template-rows: 36px ;
   grid-column-gap: 16px;
   color: var(--secondary-text);
