@@ -5,12 +5,19 @@ import {useContext, useState} from "react";
 import {DEFAULT_SIZE, PaginationContext} from "@/app/context/pagination";
 import {Button} from "@/app/components/Button";
 import {SubmitIcon} from "@/static/icons";
+import toast from "react-hot-toast";
 
 export const PaginationSize = () => {
-    const { setSize } = useContext(PaginationContext);
+    const { setSize, size } = useContext(PaginationContext);
     const [curSize, setCurSize] = useState<number>(DEFAULT_SIZE);
 
     const onSubmitClick = () => {
+        if (size === curSize) {
+            toast('Please change page size before submitting', {
+                icon: '📌'
+            })
+            return;
+        }
         setSize(curSize);
     }
 
